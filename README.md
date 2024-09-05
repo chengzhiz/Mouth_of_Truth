@@ -132,7 +132,8 @@ We could either write python or C++ with library support.
 ```shell
 git clone https://github.com/RadiumLZhang/Mouth-of-Truth.git
 ```
-![DSC03117](/Users/radium/Mouth-of-Truth/README.assets/DSC03117.JPG)
+
+![DSC03117](README.assets/DSC03117-5573696.JPG)
 
 ### Code Structure
 
@@ -165,7 +166,7 @@ sudo apt-get install python3-rpi.gpio
 python3 test_pir_sensor.py
 ```
 
-![DSC03120](/Users/radium/Mouth-of-Truth/README.assets/DSC03120.JPG)
+![DSC03120](README.assets/DSC03120.JPG)
 
 2. Real Signal ✅
 
@@ -173,7 +174,7 @@ python3 test_pir_sensor.py
 python3 test_pir_sensor_physical.py
 ```
 
-![DSC03122](/Users/radium/Mouth-of-Truth/README.assets/DSC03122.JPG)
+![DSC03122](README.assets/DSC03122-5573890.JPG)
 
 ### Circuit Connection
 
