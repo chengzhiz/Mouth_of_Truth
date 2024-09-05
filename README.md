@@ -4,13 +4,13 @@
 
 
 
-## Options:
+## Options
 
 - [x] #### Option-1: RasperberryPi
 
 Linux-like system can do anything.
 
-#### Option-2: Arduino + NUC Computer
+- [ ] Option-2: Arduino + NUC Computer
 
 **Sensors on Arduino**: 
 
@@ -84,7 +84,7 @@ have the Arduino manage sensors (motion detection, capacitive touch) and send a 
 
 
 
-### Software
+## Software
 
 We could either write python or C++ with library support.
 
@@ -125,9 +125,14 @@ We could either write python or C++ with library support.
 
 # Progress 
 
-## Week2 (Sep. 1st - Sep. 7th)
+## Week2 (09/01-09/07)
 
-- [x] Pi System Ready
+### Pi System Ready
+
+```shell
+git clone https://github.com/RadiumLZhang/Mouth-of-Truth.git
+```
+### Code Structure
 
 1. **main.py** – The main application file that handles the user interaction flow.
 
@@ -143,16 +148,27 @@ We could either write python or C++ with library support.
 sudo apt-get install python3-rpi.gpio
 ```
 
-
-
-- [ ] HC-SR501 PIR Infrared **Motion Sensor**
+### HC-SR501 PIR Infrared Motion Sensor
 
   https://www.amazon.com/dp/B07KBWVJMP/?coliid=I3B5R132ZHC8H3&colid=2SPLQP9IFVO3J&psc=1&ref_=list_c_wl_lv_cv_lig_dp_it
   ![img](https://a.media-amazon.com/images/I/31njIgpeWjL._AC_.jpg)
 
 ![img](https://a.media-amazon.com/images/I/61ZF7EvG5tL._AC_SL1001_.jpg)![img](https://a.media-amazon.com/images/I/4147blG9KsL._AC_.jpg)![img](https://a.media-amazon.com/images/I/61B2NM2iXJL._AC_SL1001_.jpg)
 
-- [x] Circuit Connection
+
+### Unit Test
+
+1. Simulated Signal
+```shell
+python3 test_pir_sensor.py
+```
+
+2. Real Signal
+```shell
+python3 test_pir_sensor_physical.py
+```
+
+### Circuit Connection
 
   **HC-SR501 PIR Motion Sensor Connection:**
 
@@ -162,6 +178,6 @@ sudo apt-get install python3-rpi.gpio
 
   ​	•	**OUT** → Connect to Raspberry Pi’s **GPIO 17**.
 
-- [ ] 
+
 
   
