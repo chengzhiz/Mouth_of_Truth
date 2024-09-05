@@ -132,6 +132,8 @@ We could either write python or C++ with library support.
 ```shell
 git clone https://github.com/RadiumLZhang/Mouth-of-Truth.git
 ```
+![DSC03117](/Users/radium/Mouth-of-Truth/README.assets/DSC03117.JPG)
+
 ### Code Structure
 
 1. **main.py** – The main application file that handles the user interaction flow.
@@ -158,15 +160,20 @@ sudo apt-get install python3-rpi.gpio
 
 ### Unit Test
 
-1. Simulated Signal
+1. Simulated Signal ✅
 ```shell
 python3 test_pir_sensor.py
 ```
 
-2. Real Signal
+![DSC03120](/Users/radium/Mouth-of-Truth/README.assets/DSC03120.JPG)
+
+2. Real Signal ✅
+
 ```shell
 python3 test_pir_sensor_physical.py
 ```
+
+![DSC03122](/Users/radium/Mouth-of-Truth/README.assets/DSC03122.JPG)
 
 ### Circuit Connection
 
