@@ -186,6 +186,13 @@ python3 test_pir_sensor_physical.py
 
   ​	•	**OUT** → Connect to Raspberry Pi’s **GPIO 17**.
 
+## Week3 (9/8-9/14)
 
+  ### Microphone voice recognition
 
-  
+```shell
+sudo apt-get install python3-pyaudio
+pip3 install SpeechRecognition
+pip3 install pyttsx3  # For text-to-speech (optional)
+```
+
