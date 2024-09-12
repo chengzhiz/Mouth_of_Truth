@@ -192,7 +192,7 @@ python3 test_pir_sensor_physical.py
 
 ```shell
 sudo apt-get install python3-pyaudio
-pip3 install SpeechRecognition
-pip3 install pyttsx3  # For text-to-speech (optional)
+pip3 install speechrecognition --break-system-packages
+pip3 install pyttsx3 --break-system-packages # For text-to-speech (optional)
 ```
 
