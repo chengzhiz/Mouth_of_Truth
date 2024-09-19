@@ -14,6 +14,8 @@ def recognize_speech_from_mic():
 
         try:
             audio = recognizer.listen(source)
+            #  audio = recognizer.listen(source, phrase_time_limit=5)  # Set time limit to stop after silence
+
             # Recognize speech using Google Web Speech API
             text = recognizer.recognize_google(audio)
             print(f"You said: {text}")

@@ -244,8 +244,7 @@ sudo apt install python3-rpi.gpio python3-pyaudio python3-venv
 **3. Set Up a Virtual Environment for Project**
 
 ```shell
-mkdir ~/my_project
-cd ~/my_project
+cd ~/Mouth-of-Truth
 python3 -m venv venv
 source venv/bin/activate
 ```
@@ -275,9 +274,11 @@ sudo python3 main.py
 
 #### Circuit Setup
 
-​	•	**VCC (5V)**: Connect to the **5V** pin
+ **VCC (5V)**: Connect to the **5V** pin
 
-​	•	**GND**: Connect to a **GND** pin
+ **GND**: Connect to a **GND** pin
 
-​	•	**DIN (Data Input)**: Connect to a **PWM-capable GPIO pin** - (**GPIO 18**).
+ **DIN (Data Input)**: Connect to a **PWM-capable GPIO pin** - (**GPIO 18**).
+
+### ChatGPT Request 
 
