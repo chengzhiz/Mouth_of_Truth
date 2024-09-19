@@ -218,6 +218,61 @@ The **rpi_ws281x** library is designed to control WS2812B LEDs on Raspberry Pi.
 sudo pip3 install rpi_ws281x
 ```
 
+**Meet the problem**
+
+Then we will do a virtual enviroment
+
+**1. Update Raspberry Pi**
+
+``` shell
+sudo apt update
+sudo apt upgrade
+```
+
+**2. Install System-Wide Dependencies**
+
+```shell
+sudo apt install python3-rpi.gpio python3-pyaudio python3-venv
+```
+
+​	•	python3-rpi.gpio: For controlling the GPIO pins.
+
+​	•	python3-pyaudio: For handling audio input/output (used for voice recognition).
+
+​	•	python3-venv: To create and manage virtual environments.
+
+**3. Set Up a Virtual Environment for Project**
+
+```shell
+mkdir ~/my_project
+cd ~/my_project
+python3 -m venv venv
+source venv/bin/activate
+```
+
+**4. Install Python Libraries for the Project**
+
+```shell
+pip install rpi_ws281x
+pip install SpeechRecognition pyttsx3
+pip install openai
+```
+
+**5. Configure GPIO and PWM Permissions**
+
+```shell
+sudo venv/bin/python your_script.py
+```
+
+**6. Run Project**
+
+```shell
+source venv/bin/activate
+sudo python3 main.py
+```
+
+
+
 #### Circuit Setup
 
 ​	•	**VCC (5V)**: Connect to the **5V** pin
@@ -225,3 +280,4 @@ sudo pip3 install rpi_ws281x
 ​	•	**GND**: Connect to a **GND** pin
 
 ​	•	**DIN (Data Input)**: Connect to a **PWM-capable GPIO pin** - (**GPIO 18**).
+
