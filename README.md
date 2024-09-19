@@ -188,7 +188,7 @@ python3 test_pir_sensor_physical.py
 
 ## Week3 (9/8-9/14)
 
-  ### Microphone voice recognition
+### Microphone voice recognition
 
 ```shell
 sudo apt-get install python3-pyaudio
@@ -196,3 +196,32 @@ pip3 install speechrecognition --break-system-packages
 pip3 install pyttsx3 --break-system-packages # For text-to-speech (optional)
 ```
 
+
+
+
+
+
+
+## Week4 (9/15-9/21)
+
+### LED light
+
+Voltage:DC4-7V
+
+Communication interface:Single-wire communication
+
+LED Chip:WS2812B
+
+The **rpi_ws281x** library is designed to control WS2812B LEDs on Raspberry Pi.
+
+```shell
+sudo pip3 install rpi_ws281x
+```
+
+#### Circuit Setup
+
+​	•	**VCC (5V)**: Connect to the **5V** pin
+
+​	•	**GND**: Connect to a **GND** pin
+
+​	•	**DIN (Data Input)**: Connect to a **PWM-capable GPIO pin** - (**GPIO 18**).
