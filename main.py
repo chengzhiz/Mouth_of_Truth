@@ -17,7 +17,7 @@ def main():
 
             if user_input:
                 # Ask ChatGPT for a response
-				response = ask_chatgpt(user_input)
+                response = ask_chatgpt(user_input)
 
                 # Display the response on the TV and play it through the speaker
 				display_on_tv(response)
