@@ -20,7 +20,7 @@ def main():
                 response = ask_chatgpt(user_input)
 
                 # Display the response on the TV and play it through the speaker
-				display_on_tv(response)
+				#display_on_tv(response)
                 #play_on_speaker(response)
 
 				# Optionally, use text-to-speech to provide audio feedback
