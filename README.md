@@ -283,3 +283,23 @@ sudo python3 main.py
 ### ChatGPT Request 
 
 ## Week5 (9/22-9/28)
+
+### Resolve Internet Issue
+
+1. Tried GT Visitor, EduRoam, GT Other
+
+2. Reinstalled entire PI System -> the python env broken
+3. GPIO permission issue
+
+```bash
+chmod +x main.py
+```
+
+quick fix,  might need to have another solution
+
+4. main user flow test
+   - [x] While motioned detected
+   - [x] Stop breathing light
+   - [x] print GPT Request
+   - [ ] Microphone Input - only one Aux Input, either spreaker or microphone, we need to have another devices to support both functionalities.
+   - [x] Spaker Output: play wav file - prerecored. 
