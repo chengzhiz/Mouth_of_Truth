@@ -313,4 +313,11 @@ quick fix,  might need to have another solution
 ### Voice Files
 
 1. Merge the pull request
-2. 
+
+2. Install required python env
+
+   ```shell
+   pip install pydub simpleaudio
+   ```
+
+   

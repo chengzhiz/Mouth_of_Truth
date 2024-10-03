@@ -1,6 +1,8 @@
 import os
 import time
 from rpi_ws281x import PixelStrip, Color
+from pydub import AudioSegment
+from pydub.playback import _play_with_simpleaudio
 
 # LED strip configuration:
 LED_COUNT = 30      # Number of LEDs in the strip (adjust this to your setup)
@@ -61,3 +63,33 @@ def display_on_tv(text):
 def play_on_speaker(text):
     """Convert text to speech and play it through the speaker."""
     os.system(f'espeak "{text}"')  # You can replace 'espeak' with another TTS library if needed.
+
+
+# Global flag to control playback
+is_playing = False
+
+def play_wav_file(file_name, loop=False):
+    """Play a WAV file from the Assets folder with optional looping."""
+    global is_playing
+    try:
+        # Construct the full file path
+        file_path = os.path.join('Assets', file_name)
+        # Load the WAV file
+        audio = AudioSegment.from_wav(file_path)
+
+        # Play the audio
+        is_playing = True
+        while is_playing:
+            playback = _play_with_simpleaudio(audio)
+            playback.wait_done()
+            if not loop:
+                break
+    except Exception as e:
+        print(f"An error occurred: {e}")
+    finally:
+        is_playing = False
+
+def stop_playback():
+    """Stop the playback of the WAV file."""
+    global is_playing
+    is_playing = False
