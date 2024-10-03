@@ -288,6 +288,10 @@ sudo python3 main.py
 
 1. Tried GT Visitor, EduRoam, GT Other
 
+https://gatech.service-now.com/home?id=kb_article_view&sysparm_article=KB0026531
+
+https://gatech.service-now.com/home?id=kb_article_view&sysparm_article=KB0026877
+
 2. Reinstalled entire PI System -> the python env broken
 3. GPIO permission issue
 
@@ -303,3 +307,10 @@ quick fix,  might need to have another solution
    - [x] print GPT Request
    - [ ] Microphone Input - only one Aux Input, either spreaker or microphone, we need to have another devices to support both functionalities.
    - [x] Spaker Output: play wav file - prerecored. 
+
+## Week6 (9/29-10/5)
+
+### Voice Files
+
+1. Merge the pull request
+2. 
