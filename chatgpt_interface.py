@@ -4,12 +4,15 @@ import openai
 
 # Read the OpenAI API key from the environment variable
 load_dotenv()
+
+# Read the OpenAI API key from the environment variable
 api_key = os.getenv("OPENAI_API_KEY")
 if not api_key:
     raise ValueError("OpenAI API key not found. Please set the OPENAI_API_KEY environment variable.")
 
-# Initialize the OpenAI client
+# Initialize the OpenAI client with the API key
 openai.api_key = api_key
+
 
 def ask_chatgpt(user_input):
     """Send a question to ChatGPT and return the response."""
@@ -42,63 +45,27 @@ def ask_chatgpt(user_input):
         top_p=1,
         frequency_penalty=0,
         presence_penalty=0,
-        functions=[
-            {
-                "name": "answer_categorize_question",
-                "description": "Provides a yes/no answer, the category name, and a justification.",
-                "parameters": {
-                    "type": "object",
-                    "properties": {
-                        "answer": {
-                            "type": "string",
-                            "enum": ["yes", "no", "None"]
-                        },
-                        "category_name": {
-                            "type": "string",
-                            "description": "The full name of the category the question belongs to.",
-                            "enum": [
-                                "No information access question",
-                                "Time limit information question",
-                                "No sensor question",
-                                "No right or wrong answer question",
-                                "Dependent on Real-Time Data",
-                                "Requiring Personal or Contextual Information About the User",
-                                "Highly Subjective Questions / Personal Opinions",
-                                "Exact Predictions",
-                                "Deeply Personal Issues",
-                                "Medical or Legal Advice",
-                                "Sensory Input-Based Question",
-                                "Questions Involving Human Emotions or Relationships",
-                                "Interpretation of Art or Literature",
-                                "Speculative or Theoretical Queries",
-                                "General Knowledge and Fact Verification"
-                            ]
-                        },
-                        "justification": {
-                            "type": "string",
-                            "description": "A one-sentence justification for why the question belongs to the category."
-                        }
-                    },
-                    "required": ["answer", "category_name", "justification"]
-                }
-            }
-        ]
+        function_call={
+            "name": "answer_categorize_question"
+        }
     )
 
-    # Extract the function call from the response
-    function_call = response['choices'][0]['message'].get('function_call')
+    # Extract the function call arguments from the response
+    function_call = response['choices'][0].get('message', {}).get('function_call', {})
 
     if function_call:
-        # Parse the arguments of the function call
         arguments = function_call.get('arguments', {})
+        answer = arguments.get('answer')
+        category_name = arguments.get('category_name')
+        justification = arguments.get('justification')
 
         # Returning the structured response
-        return f"Answer: {arguments.get('answer')}\nCategory: {arguments.get('category_name')}\nJustification: {arguments.get('justification')}"
+        return f"Answer: {answer}\nCategory: {category_name}\nJustification: {justification}"
     else:
         return "No function call was made."
 
 
 # Example usage
-# question = "will trump win the 2025 presidential election?"
-# result = ask_chatgpt(question)
-# print(result)
+question = "Will it rain tomorrow?"
+result = ask_chatgpt(question)
+print(result)
