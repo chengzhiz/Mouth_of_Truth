@@ -1,6 +1,6 @@
 from dotenv import load_dotenv
 import os
-from openai import OpenAI
+import openai
 
 # Read the OpenAI API key from the environment variable
 load_dotenv()
@@ -9,8 +9,7 @@ if not api_key:
     raise ValueError("OpenAI API key not found. Please set the OPENAI_API_KEY environment variable.")
 
 # Initialize the OpenAI client
-client = OpenAI(api_key=api_key)
-
+openai.api_key = api_key
 
 def ask_chatgpt(user_input):
     """Send a question to ChatGPT and return the response."""
