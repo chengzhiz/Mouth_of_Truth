@@ -392,3 +392,8 @@ sudo apt-get install espeak-ng
 export OPENAI_API_KEY="your_openai_api_key_here"
 ```
 
+```
+sudo venv/bin/pip install dotenv python-dotenv
+
+```
+

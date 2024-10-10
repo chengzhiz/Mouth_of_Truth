@@ -1,7 +1,9 @@
+from dotenv import load_dotenv
 import os
 from openai import OpenAI
 
 # Read the OpenAI API key from the environment variable
+load_dotenv()
 api_key = os.getenv("OPENAI_API_KEY")
 if not api_key:
     raise ValueError("OpenAI API key not found. Please set the OPENAI_API_KEY environment variable.")
@@ -9,11 +11,12 @@ if not api_key:
 # Initialize the OpenAI client
 client = OpenAI(api_key=api_key)
 
+
 def ask_chatgpt(user_input):
     """Send a question to ChatGPT and return the response."""
 
     # Construct the API call to GPT-4 with the appropriate messages and function calling
-    response = client.chat.completions.create(
+    response = openai.ChatCompletion.create(
         model="gpt-4",
         messages=[
             {
@@ -35,7 +38,7 @@ def ask_chatgpt(user_input):
                 "content": user_input
             }
         ],
-        temperature=1,  # Adjust if you want more variability in the response
+        temperature=1,
         max_tokens=2048,
         top_p=1,
         frequency_penalty=0,
@@ -84,18 +87,17 @@ def ask_chatgpt(user_input):
     )
 
     # Extract the function call from the response
-    function_call = response.choices[0].message["function_call"]
+    function_call = response['choices'][0]['message'].get('function_call')
 
-    # Parse the arguments of the function call
-    arguments = function_call["arguments"]
+    if function_call:
+        # Parse the arguments of the function call
+        arguments = function_call.get('arguments', {})
 
-    # Display the output: Answer, Category Name, and Justification
-    answer = arguments["answer"]
-    category_name = arguments["category_name"]
-    justification = arguments["justification"]
+        # Returning the structured response
+        return f"Answer: {arguments.get('answer')}\nCategory: {arguments.get('category_name')}\nJustification: {arguments.get('justification')}"
+    else:
+        return "No function call was made."
 
-    # Returning the structured response
-    return f"Answer: {answer}\nCategory: {category_name}\nJustification: {justification}"
 
 # Example usage
 # question = "will trump win the 2025 presidential election?"
