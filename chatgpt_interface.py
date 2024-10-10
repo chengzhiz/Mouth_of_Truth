@@ -114,6 +114,6 @@ def ask_chatgpt(user_input):
     }
 
 # Example usage
-question = "will trump win 2025 president election?"
-result = ask_chatgpt(question)
-print(result)
+# question = "will trump win 2025 president election?"
+# result = ask_chatgpt(question)
+# print(result)
