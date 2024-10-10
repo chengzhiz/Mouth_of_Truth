@@ -52,7 +52,7 @@ def main():
                 time.sleep(1)  # Add a small delay to avoid rapid looping
 
             else:
-
+                control_led("off")
                 terminal_ui.append_text("No user interaction detected.")
                 # make the remain part into thread from control led to play wav file
                 def else_run():
