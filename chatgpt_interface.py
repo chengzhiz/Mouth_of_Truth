@@ -1,6 +1,7 @@
 from dotenv import load_dotenv
 import os
 from openai import OpenAI
+import json
 
 # Read the OpenAI API key from the environment variable
 load_dotenv()
@@ -89,10 +90,11 @@ def ask_chatgpt(user_input):
     # Parse the arguments of the function call
     arguments = function_call.arguments
 
+    parsed_data = json.loads(arguments)
     # Display the output: Answer, Category Name, and Justification
-    answer = arguments["answer"]
-    category_name = arguments["category_name"]
-    justification = arguments["justification"]
+    answer = parsed_data["answer"]
+    category_name = parsed_data["category_name"]
+    justification = parsed_data["justification"]
 
     # Returning the structured response
     return f"Answer: {answer}\nCategory: {category_name}\nJustification: {justification}"
