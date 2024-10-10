@@ -1,8 +1,10 @@
 import os
 import time
+import threading
 from rpi_ws281x import PixelStrip, Color
 from pydub import AudioSegment
 from pydub.playback import _play_with_simpleaudio
+
 
 # LED strip configuration:
 LED_COUNT = 30      # Number of LEDs in the strip (adjust this to your setup)
