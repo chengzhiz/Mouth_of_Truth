@@ -86,8 +86,15 @@ def ask_chatgpt(user_input):
 
     print(response)
     # Extract the function call from the response
-    function_call = response.choices[0].message.function_call
-    print(function_call)
+    try:
+        function_call = response.choices[0].message.function_call
+        print(function_call)
+    except AttributeError:
+        return {
+            "asnwer": "None",
+            "category_name": "None",
+            "justification": "None"
+        }
     # Parse the arguments of the function call
 
     arguments = function_call.arguments
