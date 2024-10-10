@@ -88,8 +88,8 @@ def ask_chatgpt(user_input):
     function_call = response.choices[0].message.function_call
 
     # Parse the arguments of the function call
-    print(arguments)
     arguments = function_call.arguments
+    print(arguments)
 
     parsed_data = json.loads(arguments)
     # Display the output: Answer, Category Name, and Justification
