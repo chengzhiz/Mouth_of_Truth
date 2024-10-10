@@ -386,3 +386,9 @@ sudo apt-get install flac
 sudo apt-get install espeak-ng
 ```
 
+### OpenAI Key
+
+```shell
+export OPENAI_API_KEY="your_openai_api_key_here"
+```
+

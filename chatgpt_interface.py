@@ -1,7 +1,12 @@
 from openai import OpenAI
 
+# Read the OpenAI API key from the environment variable
+api_key = os.getenv("OPENAI_API_KEY")
+if not api_key:
+    raise ValueError("OpenAI API key not found. Please set the OPENAI_API_KEY environment variable.")
+
 # Initialize the OpenAI client
-client = OpenAI(api_key="")  # Replace with your actual API key
+client = OpenAI(api_key=api_key)
 
 def ask_chatgpt(user_input):
     """Send a question to ChatGPT and return the response."""
