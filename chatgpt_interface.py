@@ -46,8 +46,8 @@ def ask_chatgpt(user_input):
         presence_penalty=0,
     )
 
-    # Extract the response content from the API (fixed method)
-    answer_text = response['choices'][0]['message']['content']
+    # Extract the response from the API
+    answer_text = response.choices[0].message.content
 
     # The response is expected to be structured. Example format:
     # Answer: yes
