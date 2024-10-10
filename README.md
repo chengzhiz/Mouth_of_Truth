@@ -374,3 +374,15 @@ sudo apt install pipx
 sudo venv/bin/python main.py
 ```
 
+### Audio
+
+```shell
+sudo apt-get install portaudio19-dev
+sudo venv/bin/pip install pyaudio
+```
+
+```
+sudo apt-get install flac
+sudo apt-get install espeak-ng
+```
+

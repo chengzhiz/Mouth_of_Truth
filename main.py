@@ -22,9 +22,9 @@ class TerminalUI:
         # Disable editing
         self.text_area.config(state=tk.DISABLED)
 
-    def append_text(self, text):
+    def append_text(self, text, prefix=""):
         self.text_area.config(state=tk.NORMAL)
-        self.text_area.insert(tk.END, text + "\n")
+        self.text_area.insert(tk.END, f"{prefix}{text}\n")
         self.text_area.config(state=tk.DISABLED)
         self.text_area.yview(tk.END)  # Auto-scroll to the end
 
@@ -39,14 +39,17 @@ def main():
             if user_interaction_detected():
                 terminal_ui.append_text("User interaction detected. System ready.")
                 control_led("on")  # Turn on LED light when user interaction is detected.
-                user_input = recognize_speech_from_mic()
 
+                user_input = recognize_speech_from_mic()
                 if user_input:
+                    terminal_ui.append_text(user_input, prefix="User: ")
                     # Stop recognition and process the text with GPT
                     terminal_ui.append_text("Processing user input with GPT...")
                     response = ask_chatgpt(user_input)
                     answer = response['answer'] + ".wav"
                     play_wav_file(answer)
+                time.sleep(1)  # Add a small delay to avoid rapid looping
+
             else:
                 terminal_ui.append_text("No user interaction detected.")
                 control_led("breathing")  # Revert to breathing light if no user interaction is detected.
