@@ -46,7 +46,8 @@ def main():
                     # Stop recognition and process the text with GPT
                     terminal_ui.append_text("Processing user input with GPT...")
                     response = ask_chatgpt(user_input)
-                    answer = response['answer'] + ".wav"
+                    answer = response['answer'].lower() + ".wav"
+                    terminal_ui.append_text(response['justification'])
                     play_wav_file(answer)
                 time.sleep(1)  # Add a small delay to avoid rapid looping
 
