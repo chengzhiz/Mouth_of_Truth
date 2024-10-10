@@ -16,13 +16,13 @@ client = OpenAI(api_key=api_key)
 def ask_chatgpt(user_input):
     """Send a question to ChatGPT and return the response."""
 
-    # Construct the API call to GPT-4 with the appropriate messages and response format
+    # Construct the API call to GPT-4 with the appropriate messages, function calling, and response format
     response = client.chat.completions.create(
         model="gpt-4",
         messages=[
             {
                 "role": "system",
-                "content": "You are a robot that answers each question with yes or no and the reason. Firstly, determine if the question is a yes/no question. If it's not, reply with 'None'. If it is a yes/no question, reply with yes/no, and then reply with exactly the following sentences:\n\
+                "content": "You are a robot that answers each question with yes or no and the reason. Firstly, determine if the question is a yes/no question. If it's not, reply with 'None'. If it is a yes/no question, reply with yes/no, and then reply with exactly following sentences:\n\
                 1. Requiring Personal or Contextual Information About the User: LLMs lack personal context and cannot provide personalized advice, as they are unaware of individual circumstances, preferences, or experiences.\n\
                 2. Highly Subjective Questions / Personal Opinions: LLMs do not possess personal opinions or subjective preferences, making them unsuitable for answering questions that depend on individual taste or judgment.\n\
                 3. Exact Predictions: LLMs are incapable of making accurate future predictions, as their responses are based on historical data and do not foresee future events or outcomes.\n\
@@ -44,28 +44,59 @@ def ask_chatgpt(user_input):
         top_p=1,
         frequency_penalty=0,
         presence_penalty=0,
+        functions=[
+            {
+                "name": "answer_categorize_question",
+                "description": "Provides a yes/no answer, the category name, and a justification.",
+                "parameters": {
+                    "type": "object",
+                    "properties": {
+                        "answer": {
+                            "type": "string",
+                            "enum": ["yes", "no", "None"]
+                        },
+                        "category_name": {
+                            "type": "string",
+                            "description": "The full name of the category the question belongs to.",
+                            "enum": [
+                                "Requiring Personal or Contextual Information About the User",
+                                "Highly Subjective Questions / Personal Opinions",
+                                "Exact Predictions",
+                                "Deeply Personal Issues",
+                                "Medical or Legal Advice",
+                                "Sensory Input-Based Question",
+                                "Questions Involving Human Emotions or Relationships",
+                                "Interpretation of Art or Literature",
+                                "Speculative or Theoretical Queries",
+                                "General Knowledge and Fact Verification"
+                            ]
+                        },
+                        "justification": {
+                            "type": "string",
+                            "description": "A one-sentence justification for why the question belongs to the category."
+                        }
+                    },
+                    "required": ["answer", "category_name", "justification"]
+                }
+            }
+        ],
+        function_call="auto"  # Automatically call the function
     )
 
-    # Extract the response from the API
-    answer_text = response.choices[0].message.content
+    # Extract the function call from the response
+    function_call = response.choices[0].message.function_call
 
-    # The response is expected to be structured. Example format:
-    # Answer: yes
-    # Category: Exact Predictions
-    # Justification: LLMs are incapable of making accurate future predictions, as their responses are based on historical data and do not foresee future events or outcomes.
+    # Parse the arguments of the function call
+    arguments = function_call["arguments"]
 
-    # Parse the response to find answer, category_name, and justification
-    lines = answer_text.split('\n')
-    answer = lines[0].split(': ')[1] if "Answer:" in lines[0] else "None"
-    category_name = lines[1].split(': ')[1] if "Category:" in lines[1] else "Unknown"
-    justification = lines[2].split(': ')[1] if "Justification:" in lines[2] else "No justification provided"
+    # Display the output: Answer, Category Name, and Justification
+    answer = arguments["answer"]
+    category_name = arguments["category_name"]
+    justification = arguments["justification"]
 
-    # Return structured response
-    return {
-        "answer": answer,
-        "category_name": category_name,
-        "justification": justification
-    }
+    # Returning the structured response
+    return f"Answer: {answer}\nCategory: {category_name}\nJustification: {justification}"
+
 
 # Example usage
 question = "will trump win 2025 president election?"
