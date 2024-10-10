@@ -20,13 +20,16 @@ strip = PixelStrip(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRI
 strip.begin()
 
 def control_led(mode):
-    """Control LED strip for different modes like 'off', 'breathing', etc."""
+    """Control LED strip for different modes like 'off', 'breathing', 'on', etc."""
     if mode == "breathing":
         print("Breathing light activated")
         breathing_light(strip)  # Call the breathing light function
     elif mode == "off":
         print("LED turned off")
         set_strip_brightness(strip, 0)  # Turn off all LEDs
+    elif mode == "on":
+        print("LED turned on")
+        set_strip_brightness(strip, LED_BRIGHTNESS)  # Turn on all LEDs to maximum brightness
 
 
 def breathing_light(strip, wait_ms=20, max_brightness=255):

@@ -1,40 +1,65 @@
-from sensors import motion_detected, hand_on_statue
-from chatgpt_interface import ask_chatgpt
-from output_devices import display_on_tv, play_on_speaker, control_led, play_sound
-from voice_recognition import recognize_speech_from_mic, text_to_speech  # Import the voice recognition functions
 import time
 
+from sensors import user_interaction_detected
+from chatgpt_interface import ask_chatgpt
+from output_devices import control_led, play_wav_file, stop_playback
+from voice_recognition import recognize_speech_from_mic
+
+
+
+import tkinter as tk
+from tkinter import scrolledtext
+class TerminalUI:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("Terminal UI")
+        self.root.geometry("480x320")  # Set the resolution to 480x320
+
+        # Create a scrolled text widget
+        self.text_area = scrolledtext.ScrolledText(root, wrap=tk.WORD, width=60, height=20, font=("Courier", 10))
+        self.text_area.pack(padx=10, pady=10)
+
+        # Disable editing
+        self.text_area.config(state=tk.DISABLED)
+
+    def append_text(self, text):
+        self.text_area.config(state=tk.NORMAL)
+        self.text_area.insert(tk.END, text + "\n")
+        self.text_area.config(state=tk.DISABLED)
+        self.text_area.yview(tk.END)  # Auto-scroll to the end
 
 def main():
-    print("System starting...")
+    root = tk.Tk()
+    terminal_ui = TerminalUI(root)
 
-    while True:
-        if motion_detected():
-            print("User detected. System ready.")
-            control_led("off")  # Turn off breathing light when motion is detected.
+    terminal_ui.append_text("System starting...")
 
-            user_input = recognize_speech_from_mic()
+    def run():
+        while True:
+            if user_interaction_detected():
+                terminal_ui.append_text("User interaction detected. System ready.")
+                control_led("on")  # Turn on LED light when user interaction is detected.
+                user_input = recognize_speech_from_mic()
 
-            if user_input:
-                # Ask ChatGPT for a response
-                response = ask_chatgpt(user_input)
-                # f"Answer: {answer}\nCategory: {category_name}\nJustification: {justification}"
-                # Display the response on the TV and play it through the speaker
-                # display_on_tv(response)
-                # play sound with the response
-                answer = response['answer'] + ".wav"
-                play_sound(answer)
+                if user_input:
+                    # Stop recognition and process the text with GPT
+                    terminal_ui.append_text("Processing user input with GPT...")
+                    response = ask_chatgpt(user_input)
+                    answer = response['answer'] + ".wav"
+                    play_wav_file(answer)
+            else:
+                terminal_ui.append_text("No user interaction detected.")
+                control_led("breathing")  # Revert to breathing light if no user interaction is detected.
+                stop_playback()  # Stop any ongoing playback
+                # Play loop sound to attract attention
+                play_wav_file("none.wav", loop=True)
 
-                # Optionally, use text-to-speech to provide audio feedback
-                text_to_speech(f"You asked: {user_input}. Here is the answer: {response}")
-        else:
-            # No motion, activate breathing light
-            control_led("breathing")
-            # play loop sound to attract attention
-            play_sound("none.wav", loop=True)
+            time.sleep(1)
 
-        time.sleep(1)
-
+    # Run the main loop in a separate thread to keep the GUI responsive
+    import threading
+    threading.Thread(target=run, daemon=True).start()
+    root.mainloop()
 
 if __name__ == "__main__":
     main()

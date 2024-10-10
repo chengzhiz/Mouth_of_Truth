@@ -314,10 +314,63 @@ quick fix,  might need to have another solution
 
 1. Merge the pull request
 
-2. Install required python env
+2. Install required python env-audio
 
    ```shell
    pip install pydub simpleaudio
    ```
 
-   
+3. Reinstall virtual environment 
+```shell
+   sudo apt update
+   sudo apt install build-essential libssl-dev libffi-dev python3-dev
+```
+
+```shell
+   pip install openai
+   pip install rpi_ws281x --break-system-package
+   pip install SpeechRecognition pyttsx3
+   pip3 install RPi.GPIO
+   pip install pydub
+  
+```
+
+### Retest Everything
+
+![GPIO pinout diagram](https://www.raspberrypi.com/documentation/computers/images/GPIO-Pinout-Diagram-2.png?hash=df7d7847c57a1ca6d5b2617695de6d46)
+
+1. LED Light
+
+ **VCC (5V)**: Connect to the **5V** pin
+
+ **GND**: Connect to a **GND** pin
+
+ **DIN (Data Input)**: Connect to a **PWM-capable GPIO pin** - (**GPIO 18**).
+
+2. Motion Detect
+
+**VCC** → Connect to Raspberry Pi’s **5V** pin.
+
+**GND** → Connect to Raspberry Pi’s **GND** pin.
+
+**OUT** → Connect to Raspberry Pi’s **GPIO 17**.
+
+
+
+```shell
+sudo apt install pipx
+```
+
+1. With background noise test
+2. 
+
+
+
+## Week7 (10/6-10/12)
+
+### run script
+
+```
+sudo venv/bin/python main.py
+```
+
