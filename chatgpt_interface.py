@@ -88,6 +88,7 @@ def ask_chatgpt(user_input):
     function_call = response.choices[0].message.function_call
 
     # Parse the arguments of the function call
+    print(arguments)
     arguments = function_call.arguments
 
     parsed_data = json.loads(arguments)
@@ -97,8 +98,11 @@ def ask_chatgpt(user_input):
     justification = parsed_data["justification"]
 
     # Returning the structured response
-    return f"Answer: {answer}\nCategory: {category_name}\nJustification: {justification}"
-
+    return {
+        "answer": answer,
+        "category_name": category_name,
+        "justification": justification
+    }
 
 # Example usage
 question = "will trump win 2025 president election?"
