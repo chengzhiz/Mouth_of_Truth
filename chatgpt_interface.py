@@ -87,12 +87,12 @@ def ask_chatgpt(user_input):
     function_call = response.choices[0].message.function_call
 
     # Parse the arguments of the function call
-    arguments = function_call["arguments"]
+    arguments = function_call.arguments
 
     # Display the output: Answer, Category Name, and Justification
-    answer = arguments["answer"]
-    category_name = arguments["category_name"]
-    justification = arguments["justification"]
+    answer = arguments.answer
+    category_name = arguments.category_name
+    justification = arguments.justification
 
     # Returning the structured response
     return f"Answer: {answer}\nCategory: {category_name}\nJustification: {justification}"
