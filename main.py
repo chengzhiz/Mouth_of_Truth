@@ -57,7 +57,7 @@ def main():
                 stop_playback()  # Stop any ongoing playback
                 # Play loop sound to attract attention
                 play_wav_file("none.wav", loop=True)
-
+            print("looping")
             time.sleep(1)
 
     # Run the main loop in a separate thread to keep the GUI responsive
