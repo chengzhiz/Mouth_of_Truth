@@ -21,14 +21,18 @@ strip.begin()
 
 def control_led(mode):
     """Control LED strip for different modes like 'off', 'breathing', 'on', etc."""
+    global is_breathing
     if mode == "breathing":
         print("Breathing light activated")
-        breathing_light(strip)  # Call the breathing light function
+        is_breathing = True
+        threading.Thread(target=breathing_light, args=(strip,), daemon=True).start()  # Start breathing light in a separate thread
     elif mode == "off":
         print("LED turned off")
+        is_breathing = False
         set_strip_brightness(strip, 0)  # Turn off all LEDs
     elif mode == "on":
         print("LED turned on")
+        is_breathing = False
         set_strip_brightness(strip, LED_BRIGHTNESS)  # Turn on all LEDs to maximum brightness
 
 
@@ -96,6 +100,7 @@ def play_wav_file(file_name, loop=False):
 
     # Start the audio playback in a separate thread
     threading.Thread(target=play_audio, daemon=True).start()
+    print(f"Playing {file_name}...")
 
 def stop_playback():
     """Stop the playback of the WAV file."""
