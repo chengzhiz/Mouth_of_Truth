@@ -1,5 +1,5 @@
 import time
-
+import threading
 from sensors import user_interaction_detected
 from chatgpt_interface import ask_chatgpt
 from output_devices import control_led, play_wav_file, stop_playback
@@ -39,7 +39,7 @@ def main():
             if user_interaction_detected():
                 terminal_ui.append_text("User interaction detected. System ready.")
                 control_led("on")  # Turn on LED light when user interaction is detected.
-
+                stop_playback()  # Stop any ongoing playback
                 user_input = recognize_speech_from_mic()
                 if user_input:
                     terminal_ui.append_text(user_input, prefix="User: ")
@@ -52,11 +52,17 @@ def main():
                 time.sleep(1)  # Add a small delay to avoid rapid looping
 
             else:
+
                 terminal_ui.append_text("No user interaction detected.")
-                control_led("breathing")  # Revert to breathing light if no user interaction is detected.
-                stop_playback()  # Stop any ongoing playback
-                # Play loop sound to attract attention
-                play_wav_file("none.wav", loop=True)
+                # make the remain part into thread from control led to play wav file
+                def else_run():
+                    control_led("breathing")  # Revert to breathing light if no user interaction is detected.
+                    stop_playback()  # Stop any ongoing playback
+                    # Play loop sound to attract attention
+                    play_wav_file("none.wav", loop=True)
+                threading.Thread(target=else_run, daemon=True).start()
+
+
             print("looping")
             time.sleep(1)
 
