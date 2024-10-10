@@ -90,9 +90,9 @@ def ask_chatgpt(user_input):
     arguments = function_call.arguments
 
     # Display the output: Answer, Category Name, and Justification
-    answer = arguments.answer
-    category_name = arguments.category_name
-    justification = arguments.justification
+    answer = arguments["answer"]
+    category_name = arguments["category_name"]
+    justification = arguments["justification"]
 
     # Returning the structured response
     return f"Answer: {answer}\nCategory: {category_name}\nJustification: {justification}"
