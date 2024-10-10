@@ -84,10 +84,12 @@ def ask_chatgpt(user_input):
         function_call="auto"  # Automatically call the function
     )
 
+    print(response)
     # Extract the function call from the response
     function_call = response.choices[0].message.function_call
-
+    print(function_call)
     # Parse the arguments of the function call
+
     arguments = function_call.arguments
     print(arguments)
 
