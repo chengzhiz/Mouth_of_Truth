@@ -28,6 +28,10 @@ class TerminalUI:
         self.text_area.config(state=tk.DISABLED)
         self.text_area.yview(tk.END)  # Auto-scroll to the end
 
+    def clear_text(self):
+        self.text_area.config(state=tk.NORMAL)
+        self.text_area.delete(1.0, tk.END)
+        self.text_area.config(state=tk.DISABLED)
 def main():
     root = tk.Tk()
     terminal_ui = TerminalUI(root)
@@ -38,8 +42,8 @@ def main():
         last_was_else = False
         while True:
             if user_interaction_detected():
-                #clear the terminal
-                terminal_ui.text_area.delete(1.0, tk.END)
+                #clear the terminal all the past text, all clean
+                terminal_ui.clear_text()
                 terminal_ui.append_text("User interaction detected. System ready.")
                 control_led("on")  # Turn on LED light when user interaction is detected.
                 stop_playback()  # Stop any ongoing playback
