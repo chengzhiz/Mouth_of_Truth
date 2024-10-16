@@ -38,7 +38,8 @@ def main():
         last_was_else = False
         while True:
             if user_interaction_detected():
-
+                #clear the terminal
+                terminal_ui.text_area.delete(1.0, tk.END)
                 terminal_ui.append_text("User interaction detected. System ready.")
                 control_led("on")  # Turn on LED light when user interaction is detected.
                 stop_playback()  # Stop any ongoing playback
@@ -48,6 +49,7 @@ def main():
                     # Stop recognition and process the text with GPT
                     terminal_ui.append_text("Processing user input with GPT...")
                     response = ask_chatgpt(user_input)
+                    print(response)
                     answer = response['answer'].lower() + ".wav"
                     terminal_ui.append_text(response['justification'])
                     play_wav_file(answer)
