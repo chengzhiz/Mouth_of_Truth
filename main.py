@@ -56,8 +56,16 @@ def main():
                     print(response)
                     answer = response['answer'].lower() + ".wav"
                     terminal_ui.append_text("GPT: " + response['answer'] + '\n')
-                    terminal_ui.append_text("Category: " + response['category'] + '\n')
-                    terminal_ui.append_text('Justification: ' + response['justification'] + '\n')
+                    try:
+                        terminal_ui.append_text("Category: " + response['category'] + '\n')
+                    except KeyError:
+                        # do nothing
+                        pass
+                    try:
+                        terminal_ui.append_text('Justification: ' + response['justification'] + '\n')
+                    except KeyError:
+                        # do nothing
+                        pass
                     play_wav_file(answer)
                 time.sleep(10)  # Add a small delay to avoid rapid looping
                 last_was_else = False
