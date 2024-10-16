@@ -49,7 +49,7 @@ def main():
                 stop_playback()  # Stop any ongoing playback
                 user_input = recognize_speech_from_mic()
                 if user_input:
-                    terminal_ui.append_text(user_input, prefix="User: ", postfix="?\n")
+                    terminal_ui.append_text(user_input + "?\n", prefix="User: ")
                     # Stop recognition and process the text with GPT
                     terminal_ui.append_text("Processing user input with GPT...\n")
                     response = ask_chatgpt(user_input)
