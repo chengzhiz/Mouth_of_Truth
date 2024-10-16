@@ -17,7 +17,7 @@ class TerminalUI:
 
         # Create a scrolled text widget
         self.text_area = scrolledtext.ScrolledText(root, wrap=tk.WORD, width=60, height=20, font=("Courier", 32))
-        self.text_area.pack(padx=10, pady=10)
+        self.text_area.pack(padx=20, pady=20)
 
         # Disable editing
         self.text_area.config(state=tk.DISABLED)
