@@ -38,6 +38,7 @@ def main():
         last_was_else = False
         while True:
             if user_interaction_detected():
+
                 terminal_ui.append_text("User interaction detected. System ready.")
                 control_led("on")  # Turn on LED light when user interaction is detected.
                 stop_playback()  # Stop any ongoing playback

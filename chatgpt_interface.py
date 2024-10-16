@@ -97,8 +97,16 @@ def ask_chatgpt(user_input):
         }
     # Parse the arguments of the function call
 
-    arguments = function_call.arguments
-    print(arguments)
+    try:
+        arguments = function_call.arguments
+        print(arguments)
+    except AttributeError:
+        return {
+            "asnwer": "None",
+            "category_name": "None",
+            "justification": "None"
+        }
+
 
     parsed_data = json.loads(arguments)
     # Display the output: Answer, Category Name, and Justification
