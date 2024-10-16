@@ -16,7 +16,7 @@ class TerminalUI:
         self.root.geometry("480x320")  # Set the resolution to 480x320
 
         # Create a scrolled text widget
-        self.text_area = scrolledtext.ScrolledText(root, wrap=tk.WORD, width=60, height=20, font=("Courier", 10))
+        self.text_area = scrolledtext.ScrolledText(root, wrap=tk.WORD, width=60, height=20, font=("Courier", 32))
         self.text_area.pack(padx=10, pady=10)
 
         # Disable editing
@@ -49,17 +49,16 @@ def main():
                     answer = response['answer'].lower() + ".wav"
                     terminal_ui.append_text(response['justification'])
                     play_wav_file(answer)
-                time.sleep(1)  # Add a small delay to avoid rapid looping
+                time.sleep(10)  # Add a small delay to avoid rapid looping
 
             else:
-                control_led("off")
                 terminal_ui.append_text("No user interaction detected.")
                 # make the remain part into thread from control led to play wav file
                 def else_run():
                     control_led("breathing")  # Revert to breathing light if no user interaction is detected.
                     stop_playback()  # Stop any ongoing playback
                     # Play loop sound to attract attention
-                    play_wav_file("none.wav", loop=True)
+                    play_wav_file("intro.wav", loop=True)
                 threading.Thread(target=else_run, daemon=True).start()
 
 

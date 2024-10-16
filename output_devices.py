@@ -27,7 +27,7 @@ def control_led(mode):
     if mode == "breathing":
         print("Breathing light activated")
         is_breathing = True
-        threading.Thread(target=breathing_light, args=(strip,), daemon=True).start()  # Start breathing light in a separate thread
+        breathing_light(strip)
     elif mode == "off":
         print("LED turned off")
         is_breathing = False
@@ -37,19 +37,18 @@ def control_led(mode):
         is_breathing = False
         set_strip_brightness(strip, LED_BRIGHTNESS)  # Turn on all LEDs to maximum brightness
 
-
-def breathing_light(strip, wait_ms=20, max_brightness=255):
-    """Create a breathing light effect by smoothly changing LED brightness."""
+def breathing_light(strip, wait_ms=50, max_brightness=255):
+    """Create a more visible breathing light effect by smoothly changing LED brightness."""
     try:
         # Gradually increase and decrease the brightness in a breathing pattern
         while True:
             # Gradually increase brightness
-            for brightness in range(0, max_brightness + 1, 5):
+            for brightness in range(0, max_brightness + 1, 10):
                 set_strip_brightness(strip, brightness)
                 time.sleep(wait_ms / 1000.0)
 
             # Gradually decrease brightness
-            for brightness in range(max_brightness, -1, -5):
+            for brightness in range(max_brightness, -1, -10):
                 set_strip_brightness(strip, brightness)
                 time.sleep(wait_ms / 1000.0)
 
@@ -57,14 +56,12 @@ def breathing_light(strip, wait_ms=20, max_brightness=255):
         # Stop and turn off LEDs when exiting the loop
         set_strip_brightness(strip, 0)
 
-
 def set_strip_brightness(strip, brightness):
     """Set the brightness of the entire strip to a single color (e.g., white)."""
     color = Color(brightness, brightness, brightness)  # Grayscale color based on brightness
     for i in range(strip.numPixels()):
         strip.setPixelColor(i, color)
     strip.show()
-
 def display_on_tv(text):
     """Display text on the TV screen."""
     os.system(f"echo '{text}' > /dev/tty1")  # Replace with the appropriate command to display on your TV setup
