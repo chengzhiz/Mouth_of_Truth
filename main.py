@@ -15,8 +15,8 @@ class TerminalUI:
         self.root.title("Terminal UI")
         self.root.geometry("480x320")  # Set the resolution to 480x320
 
-        # Create a scrolled text widget
-        self.text_area = scrolledtext.ScrolledText(root, wrap=tk.WORD, width=60, height=20, font=("Courier", 32))
+        # Create a scrolled text widget with black background and white text
+        self.text_area = scrolledtext.ScrolledText(root, wrap=tk.WORD, width=60, height=20, font=("Courier", 48), bg="black", fg="white")
         self.text_area.pack(padx=100, pady=10)
 
         # Disable editing
@@ -49,13 +49,13 @@ def main():
                 stop_playback()  # Stop any ongoing playback
                 user_input = recognize_speech_from_mic()
                 if user_input:
-                    terminal_ui.append_text(user_input, prefix="User: ")
+                    terminal_ui.append_text(user_input, prefix="User: ", postfix="?\n")
                     # Stop recognition and process the text with GPT
-                    terminal_ui.append_text("Processing user input with GPT...")
+                    terminal_ui.append_text("Processing user input with GPT...\n")
                     response = ask_chatgpt(user_input)
                     print(response)
                     answer = response['answer'].lower() + ".wav"
-                    terminal_ui.append_text(response['justification'])
+                    terminal_ui.append_text(response['justification']+'\n')
                     play_wav_file(answer)
                 time.sleep(10)  # Add a small delay to avoid rapid looping
                 last_was_else = False
