@@ -44,7 +44,7 @@ def main():
             if user_interaction_detected():
                 #clear the terminal all the past text, all clean
                 terminal_ui.clear_text()
-                terminal_ui.append_text("User interaction detected. System ready.")
+                terminal_ui.append_text("User interaction detected. System ready.\n")
                 control_led("on")  # Turn on LED light when user interaction is detected.
                 stop_playback()  # Stop any ongoing playback
                 user_input = recognize_speech_from_mic()
@@ -55,7 +55,9 @@ def main():
                     response = ask_chatgpt(user_input)
                     print(response)
                     answer = response['answer'].lower() + ".wav"
-                    terminal_ui.append_text(response['justification']+'\n')
+                    terminal_ui.append_text("GPT: " + response['answer'] + '\n')
+                    terminal_ui.append_text("Category: " + response['category'] + '\n')
+                    terminal_ui.append_text('Justification: ' + response['justification'] + '\n')
                     play_wav_file(answer)
                 time.sleep(10)  # Add a small delay to avoid rapid looping
                 last_was_else = False
