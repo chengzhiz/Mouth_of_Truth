@@ -35,6 +35,7 @@ def main():
     terminal_ui.append_text("System starting...")
 
     def run():
+        last_was_else = False
         while True:
             if user_interaction_detected():
                 terminal_ui.append_text("User interaction detected. System ready.")
@@ -50,7 +51,7 @@ def main():
                     terminal_ui.append_text(response['justification'])
                     play_wav_file(answer)
                 time.sleep(10)  # Add a small delay to avoid rapid looping
-
+                last_was_else = False
             else:
                 terminal_ui.append_text("No user interaction detected.")
                 # make the remain part into thread from control led to play wav file
@@ -59,8 +60,10 @@ def main():
                     stop_playback()  # Stop any ongoing playback
                     # Play loop sound to attract attention
                     play_wav_file("intro.wav", loop=True)
-                threading.Thread(target=else_run, daemon=True).start()
 
+                if not last_was_else:
+                    threading.Thread(target=else_run, daemon=True).start()
+                    last_was_else = True
 
             print("looping")
             time.sleep(1)

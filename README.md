@@ -396,3 +396,7 @@ export OPENAI_API_KEY="your_openai_api_key_here"
 sudo venv/bin/pip install dotenv python-dotenv
 ```
 
+## Week8 (10/13-10/19)
+
+1. Change the UI interface font size
+2. 
