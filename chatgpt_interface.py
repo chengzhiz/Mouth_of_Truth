@@ -91,7 +91,7 @@ def ask_chatgpt(user_input):
         print(function_call)
     except AttributeError:
         return {
-            "asnwer": "None",
+            "answer": "None",
             "category_name": "None",
             "justification": "None"
         }
@@ -102,7 +102,7 @@ def ask_chatgpt(user_input):
         print(arguments)
     except AttributeError:
         return {
-            "asnwer": "None",
+            "answer": "None",
             "category_name": "None",
             "justification": "None"
         }
