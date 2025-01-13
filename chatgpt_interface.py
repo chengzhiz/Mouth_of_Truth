@@ -23,7 +23,7 @@ def ask_chatgpt(user_input):
         messages=[
             {
                 "role": "system",
-                "content": "You are a robot that answers each question with yes or no and the reason. Firstly, determine if the question is a yes/no question. If it's not, reply with 'None'. If it is a yes/no question, reply with yes/no or idk, and then reply with exactly the following sentences:\n\
+                "content": "You are an agent that answers boolean question and the reason. First decide whether it's a boolean question. If it's not, reply with None. If it's a boolean question, reply with Yes/No/I don't know, the category name and the justification with exactly the following sentences: \n\
                                 1. Personal and Contextual Insight: Chatbots don’t know your personal details that they’re not told (and don’t understand human experience), don’t rely on it for personal advice. \n\
                 2. Emotions and Relationships: Chatbots don’t understand emotions or relationships, they don’t have empathy even they pretend they have.\n\
                 3. Personal Opinions and Preferences: Chatbots might pretend to have personal opinions but they don’t, so take their opinions with a second thought. \n\
@@ -47,7 +47,7 @@ def ask_chatgpt(user_input):
         functions=[
             {
                 "name": "answer_categorize_question",
-                "description": "Provides a yes/no answer, the category name, and a justification.",
+                "description": "Firstly, decide whether it's a boolean question, if it's not, reply with None. If it is a boolean question, reply with Yes/No/I don't know, the category name, and a justification.",
                 "parameters": {
                     "type": "object",
                     "properties": {
@@ -76,7 +76,8 @@ def ask_chatgpt(user_input):
 
                                 "General Knowledge and Fact-Checking",
 
-                                "Identity and Personhood"
+                                "Identity and Personhood",
+                                
 
                             ]
                         },
@@ -121,13 +122,19 @@ def ask_chatgpt(user_input):
     answer = parsed_data["answer"]
     category_name = parsed_data["category_name"]
     justification = parsed_data["justification"]
-
-    # Returning the structured response
-    return {
-        "answer": answer,
-        "category_name": category_name,
-        "justification": justification
-    }
+    if answer == "None":
+        return {
+            "answer": "None",
+            "category_name": "None",
+            "justification": "None"
+        }
+    else:    
+        # Returning the structured response
+        return {
+            "answer": answer,
+            "category_name": category_name,
+            "justification": justification
+        }
 
 # Example usage
 # question = "will trump win 2025 president election?"

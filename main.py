@@ -16,7 +16,7 @@ class TerminalUI:
         self.root.geometry("480x320")  # Set the resolution to 480x320
 
         # Create a scrolled text widget with black background and white text
-        self.text_area = scrolledtext.ScrolledText(root, wrap=tk.WORD, width=60, height=20, font=("Courier", 48), bg="black", fg="white")
+        self.text_area = scrolledtext.ScrolledText(root, wrap=tk.WORD, width=60, height=20, font=("Courier", 40), bg="black", fg="white")
         self.text_area.pack(padx=100, pady=10)
 
         # Disable editing

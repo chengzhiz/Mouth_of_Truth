@@ -1,3 +1,4 @@
+#!/usr/bin/python
 from output_devices import control_led
 
 def main():
