@@ -73,8 +73,8 @@ def main():
                             "General Knowledge and Fact-Checking": "Chatbots excel at general knowledge and fact-checking in areas like history, science, and technology.",
                             "Identity and Personhood": "Chatbots are not human. They don’t have identities, genders, or personalities."
                         }
-                        terminal_ui.append_text('Justification: ' + categories[response['category_name']] + '\n')
-                        #terminal_ui.append_text('Justification: ' + response['justification'] + '\n')
+                        #terminal_ui.append_text('Justification: ' + categories['category_name'] + '\n')
+                        terminal_ui.append_text('Justification: ' + response['justification'] + '\n')
                     except KeyError:
                         # do nothing
                         pass
